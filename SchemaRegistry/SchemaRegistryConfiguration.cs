@@ -9,7 +9,7 @@ namespace SchemaRegistry
     /// <summary>
     /// Schema registration configuration.
     /// </summary>
-    public class SchemaRegistryConfiguration
+    public sealed class SchemaRegistryConfiguration
     {
         private List<IStreamDetectorStrategy> detectors = new();
         private Dictionary<SchemaType, ISchemaValidator> validators = new();

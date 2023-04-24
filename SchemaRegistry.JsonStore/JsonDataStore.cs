@@ -1,10 +1,9 @@
-﻿using System.Text;
-
-namespace SchemaRegistry.JsonStore
+﻿namespace SchemaRegistry.JsonStore
 {
     using JsonFlatFileDataStore;
+    using System.Text;
 
-    public class JsonDataStore : SchemaRegistry.IDataStore
+    public sealed class JsonDataStore : SchemaRegistry.IDataStore
     {
         private readonly DataStore _store;
         private readonly IDocumentCollection<JsonStore> _collection;

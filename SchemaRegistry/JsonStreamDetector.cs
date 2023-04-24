@@ -10,7 +10,7 @@ namespace SchemaRegistry
     /// <summary>
     /// Detects if a stream is a JSON stream.
     /// </summary>
-    public class JsonStreamDetector : IStreamDetectorStrategy
+    public sealed class JsonStreamDetector : IStreamDetectorStrategy
     {
         /// <inheritdoc/>
         public bool CanDetect(Stream stream)

@@ -13,7 +13,7 @@ namespace SchemaRegistry
     /// <summary>
     /// In memory version of a data store.
     /// </summary>
-    public class MemoryDataStore : IDataStore
+    public sealed class MemoryDataStore : IDataStore
     {
         private readonly static Task<ISchema> EmptyTask = Task.FromResult(null as ISchema);
         private readonly ConcurrentDictionary<string, ISchema> schemaStore;

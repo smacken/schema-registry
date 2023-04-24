@@ -8,7 +8,7 @@
     /// <summary>
     /// Schema validation registry.
     /// </summary>
-    public class Registry : IRegistry
+    public sealed class Registry : IRegistry
     {
         private readonly IDataStore _dataStore;
         private readonly StreamDetector _schemaStreamDetector;

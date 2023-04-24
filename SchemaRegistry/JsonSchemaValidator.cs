@@ -1,8 +1,4 @@
-﻿// <copyright file="JsonSchemaValidator.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
-
-namespace SchemaRegistry
+﻿namespace SchemaRegistry
 {
     using System;
     using System.Buffers;
@@ -18,7 +14,7 @@ namespace SchemaRegistry
     /// <summary>
     /// JsonSchemaValidator.
     /// </summary>
-    public class JsonSchemaValidator : ISchemaValidator
+    public sealed class JsonSchemaValidator : ISchemaValidator
     {
         /// <inheritdoc/>
         public async Task<ValidationResult> ValidateAsync(Stream schema, string knownSchema)

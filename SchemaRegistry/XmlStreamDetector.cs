@@ -7,7 +7,7 @@ namespace SchemaRegistry
     using System.IO;
     using System.Xml;
 
-    public class XmlStreamDetector : IStreamDetectorStrategy
+    public sealed class XmlStreamDetector : IStreamDetectorStrategy
     {
         public bool CanDetect(Stream stream)
         {
