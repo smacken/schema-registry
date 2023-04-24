@@ -34,10 +34,9 @@ namespace SchemaRegistry.JsonStore
             }
         }
 
-        public JsonDataStore()
+        public JsonDataStore(string filePath)
         {
-            string? path = "";
-            _store = new DataStore(path);
+            _store = new DataStore(filePath);
             _collection = _store.GetCollection<JsonStore>("schema");
         }
 

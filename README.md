@@ -130,6 +130,25 @@ var config = new SchemaRegistryConfiguration().WithParquet().WithDataStore(new R
 
 Note that you will need to have a Redis instance running on `localhost` to use `RedisDataStore`. You can customize the connection details as required.:w
 
+## Microsoft.Extensions.DependencyInjection
+
+To add SchemaRegistry to your project using dependency injection, you can use the `AddSchemaRegistry` extension method on `IServiceCollection`. This method takes in a `SchemaRegistryConfiguration` `Action` that allows you to configure the registry with detectors, validators, and data stores.
+
+After calling the `AddSchemaRegistry` method and passing in your configuration, the method will register the configuration object as a singleton, the data store as a singleton, and the `IRegistry` implementation as a singleton.
+
+Here's an example of how to use this extension method in your code:
+
+```csharp
+services.AddSchemaRegistry(config =>
+{
+    config.WithRedis().WithJson().WithXml();
+});
+```
+
+In this example, we're configuring the registry with a Json stream detector and validator, as well as a Redis data store. You can also add other detectors, validators, and data stores as needed.
+
+After calling `AddSchemaRegistry`, you can inject `IRegistry` into your classes and use it to validate and store schemas.
+
 
 ## Contributing
 

@@ -12,6 +12,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchemaRegistry.Parquet", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchemaRegistry.Avro", "SchemaRegistry.Avro\SchemaRegistry.Avro.csproj", "{15DEA040-BA3F-4E35-B72C-DFF5AE38C6A2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchemaRegistry.Microsoft.DependencyInjection", "SchemaRegistry.Microsoft.DependencyInjection\SchemaRegistry.Microsoft.DependencyInjection.csproj", "{D9F06F81-E419-4ABF-8A57-7B9517B37FDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchemaRegistry.Sample.Api", "SchemaRegistry.Sample.Api\SchemaRegistry.Sample.Api.csproj", "{40CD57C6-A147-4CAE-BA55-2B404BBEDA0E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +46,13 @@ Global
 		{15DEA040-BA3F-4E35-B72C-DFF5AE38C6A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15DEA040-BA3F-4E35-B72C-DFF5AE38C6A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15DEA040-BA3F-4E35-B72C-DFF5AE38C6A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9F06F81-E419-4ABF-8A57-7B9517B37FDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9F06F81-E419-4ABF-8A57-7B9517B37FDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9F06F81-E419-4ABF-8A57-7B9517B37FDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9F06F81-E419-4ABF-8A57-7B9517B37FDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40CD57C6-A147-4CAE-BA55-2B404BBEDA0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40CD57C6-A147-4CAE-BA55-2B404BBEDA0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40CD57C6-A147-4CAE-BA55-2B404BBEDA0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40CD57C6-A147-4CAE-BA55-2B404BBEDA0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
