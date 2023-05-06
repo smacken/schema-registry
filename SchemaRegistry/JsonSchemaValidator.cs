@@ -50,10 +50,10 @@
 
         private async Task<ValidationResult> ValidateWithFewerAllocations(Stream schema, JsonSchema schemaJson)
         {
-            List<ValidationError>? errors = new();
+            List<ValidationError>? errors = new ();
             byte[]? buffer = ArrayPool<byte>.Shared.Rent(4096);
             Decoder? decoder = Encoding.UTF8.GetDecoder();
-            StringBuilder? sb = new();
+            StringBuilder? sb = new ();
             if (schema.Position > 0)
             {
                 schema.Position = 0;
@@ -68,7 +68,8 @@
                     char[]? chars = new char[decoder.GetCharCount(buffer, 0, bytesRead)];
                     decoder.GetChars(buffer, 0, bytesRead, chars, 0);
                     sb.Append(chars);
-                } while (bytesRead > 0);
+                }
+                while (bytesRead > 0);
 
                 ICollection<ValidationError>? result = schemaJson.Validate(sb.ToString());
                 errors.AddRange(result);
@@ -81,17 +82,22 @@
             return new ValidationResult
             {
                 Message = string.Join(", ", errors.Select(error => $"{error.Path}: {error.Kind}")),
-                IsValid = errors.Count == 0
+                IsValid = errors.Count == 0,
             };
         }
 
         private async Task<ValidationResult> ValidateWithParallelProcessing(Stream schema, JsonSchema schemaJson,
             int bufferSize)
         {
-            ConcurrentBag<ValidationError>? errors = new();
+            if (bufferSize <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(bufferSize));
+            }
+
+            ConcurrentBag<ValidationError>? errors = new ();
             Decoder? decoder = Encoding.UTF8.GetDecoder();
             byte[]? buffer = ArrayPool<byte>.Shared.Rent(bufferSize);
-            List<Task>? tasks = new();
+            List<Task>? tasks = new ();
             if (schema.Position > 0)
             {
                 schema.Position = 0;

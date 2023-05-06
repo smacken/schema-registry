@@ -26,7 +26,11 @@ namespace SchemaRegistry
         /// <param name="subject">the schema subject.</param>
         /// <param name="label">an additional label metadata.</param>
         /// <param name="version">the version of the schema over time.</param>
-        /// <returns>a validation result from the schema validation</returns>
+        /// <returns>a validation result from the schema validation.</returns>
         Task<ValidationResult> ValidateAsync(Stream inputStream, string subject, string? label, string? version);
+        
+        Task<ValidationResult> ValidateAsync(Stream inputStream, string subject, string? version);
+        
+        Task<ValidationResult> ValidateAsync(Stream inputStream, string subject);
     }
 }

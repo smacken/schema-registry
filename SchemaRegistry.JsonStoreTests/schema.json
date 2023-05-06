@@ -1,0 +1,22 @@
+{
+  "schema": [
+    {
+      "key": "api/products:dev:1.0.0",
+      "schema": {
+        "subject": "api/products",
+        "schema": "{\"type\":\"record\",\"name\":\"Product\",\"namespace\":\"api\",\"fields\":[{\"name\":\"Id\",\"type\":\"int\"},{\"name\":\"Name\",\"type\":\"string\"},{\"name\":\"Price\",\"type\":\"double\"}]}",
+        "label": "dev",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "key": "api/products:dev:1.0.1",
+      "schema": {
+        "subject": "api/products",
+        "schema": "{\"type\":\"record\",\"name\":\"Product\",\"namespace\":\"api\",\"fields\":[{\"name\":\"Id\",\"type\":\"int\"},{\"name\":\"Name\",\"type\":\"string\"},{\"name\":\"Price\",\"type\":\"double\"}]}",
+        "label": "dev",
+        "version": "1.0.1"
+      }
+    }
+  ]
+}

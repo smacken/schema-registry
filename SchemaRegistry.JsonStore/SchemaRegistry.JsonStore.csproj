@@ -4,14 +4,17 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>SchemaRegistryJsonStore</Title>
+        <Description>A JSON store for holding known schemas to validate against.</Description>
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\SchemaRegistry\SchemaRegistry.csproj"/>
+        <ProjectReference Include="..\SchemaRegistry\SchemaRegistry.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="JsonFlatFileDataStore" Version="2.4.1"/>
+        <PackageReference Include="JsonFlatFileDataStore" Version="2.4.1" />
     </ItemGroup>
 
 </Project>

@@ -14,14 +14,15 @@
         /// <summary>
         /// Create an instance of the RedisDataStore.
         /// </summary>
-        public RedisDataStore()
+        public RedisDataStore(IConnectionMultiplexer? redisConnection = null)
         {
-            ConnectionMultiplexer? redis = ConnectionMultiplexer.Connect("localhost");
+            IConnectionMultiplexer redis = redisConnection ?? ConnectionMultiplexer.Connect("localhost");
             _database = redis.GetDatabase();
-            _redisHelper = new RedisHelper("localhost");
+            _redisHelper = new RedisHelper("localhost", redis);
         }
 
         /// <inheritdoc />
+        /// <remarks>'api/products:dev:1.0.0'</remarks>
         public Task UpsertAsync(ISchema schema)
         {
             StringBuilder? sb = new();
@@ -38,13 +39,13 @@
                 sb.Append(schema.Version);
             }
 
-            return _database.StringSetAsync(sb.ToString(), schema.Schema);
+            return _database.StringSetAsync(sb.ToString(), schema.Schema, flags: CommandFlags.FireAndForget, expiry: null, when: When.Always);
         }
 
         /// <inheritdoc />
         public async Task<ISchema> GetAsync(string subject, string? label, string? version)
         {
-            string? storeValue = await _redisHelper.GetValueForKeyAsync(subject);
+            string? storeValue = await _redisHelper.GetValueForKeyAsync(subject, label, version);
             return new ValidationSchema
             {
                 Subject = subject,

@@ -74,5 +74,11 @@
             ValidationResult? result = await validator.ValidateAsync(inputStream, knownSchema.Schema);
             return result;
         }
+
+        public Task<ValidationResult> ValidateAsync(Stream inputStream, string subject, string? version) =>
+            ValidateAsync(inputStream, subject, null, version);
+
+        public Task<ValidationResult> ValidateAsync(Stream inputStream, string subject) =>
+            ValidateAsync(inputStream, subject, null, null);
     }
 }

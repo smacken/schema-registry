@@ -56,9 +56,15 @@ app.MapGet("/api/v{version:apiVersion}/products/{id:int}",
 });
 
 app.MapPost("/api/v{version:apiVersion}/products", 
-    async Task<IResult> (HttpRequest request, IProductService productService, IRegistry registry) =>
+    async Task<IResult> (HttpRequest request, 
+        IProductService productService, 
+        IRegistry registry, 
+        ApiVersion apiVersion) =>
     {
-        ValidationResult validationResult = await registry.ValidateAsync(request.Body, "/api/products", null, null);
+        ValidationResult validationResult = await registry.ValidateAsync(
+            request.Body, 
+            "/api/products", 
+            version: apiVersion.MajorVersion.ToString());
         if (!validationResult.IsValid) return Results.BadRequest(validationResult.Message);
         using StreamReader reader = new StreamReader(request.Body, Encoding.UTF8);
         string requestBody = await reader.ReadToEndAsync();

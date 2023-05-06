@@ -39,7 +39,7 @@
                 var value = serializer.Deserialize(input);
                 result = new ValidationResult(true);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 result = new ValidationResult(false, "Invalid Avro Schema.");
             }

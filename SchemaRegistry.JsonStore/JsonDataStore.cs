@@ -8,12 +8,12 @@
         private readonly DataStore _store;
         private readonly IDocumentCollection<JsonStore> _collection;
 
-        private class JsonStore
+        public class JsonStore
         {
             public string Key { get; set; }
-            public ISchema Schema { get; init; }
+            public ValidationSchema Schema { get; init; }
 
-            public JsonStore(ISchema schema)
+            public JsonStore(ValidationSchema schema)
             {
                 var keyText = new StringBuilder();
                 keyText.Append(schema.Subject);
@@ -42,46 +42,46 @@
         /// <inheritdoc />
         public Task UpsertAsync(ISchema schema)
         {
-            return _collection.InsertOneAsync(new JsonStore(schema));
+            return _collection.InsertOneAsync(new JsonStore((schema as ValidationSchema)!));
         }
 
         /// <inheritdoc />
         public Task<ISchema> GetAsync(string subject, string? label = null, string? version = null)
         {
+            IEnumerable<string> keys = GetFilterKeys(subject, label, version);
+
+            var items = _collection.AsQueryable()
+                .Where(x => keys.Contains(x.Key))
+                .Select(x => x.Schema)
+                .ToList();
+            var itemVersions = items.Select(x => x.Version).ToArray();
+            var latestVersion = VersionParser.GetLatestVersion(itemVersions);
+            var latestItem = items.FirstOrDefault(x => x.Version == latestVersion);
+            if (latestItem != null) return Task.FromResult<ISchema>(latestItem);
+
+            return Task.FromResult(new EmptySchema() as ISchema);
+        }
+
+        private IEnumerable<string> GetFilterKeys(string subject, string? label, string? version)
+        {
             var keys = _collection.AsQueryable()
                 .Where(x => x.Key.StartsWith(subject))
                 .Select(x => x.Key);
-            foreach (var key in keys)
+
+            if (label != null && version != null)
             {
-                var value = _store.GetItem<JsonStore>(key);
-                if (label != null && version != null)
-                {
-                    if (value.Schema.Label == label && value.Schema.Version == version)
-                    {
-                        return Task.FromResult(value.Schema);
-                    }
-                }
-                else if (label != null)
-                {
-                    if (value.Schema.Label == label)
-                    {
-                        return Task.FromResult(value.Schema);
-                    }
-                }
-                else if (version != null)
-                {
-                    if (value.Schema.Version == version)
-                    {
-                        return Task.FromResult(value.Schema);
-                    }
-                }
-                else
-                {
-                    return Task.FromResult(value.Schema);
-                }
+                keys = keys.Where(x => x.Contains(label) && x.Contains(version));
+            }
+            else if (label != null)
+            {
+                keys = keys.Where(x => x.Contains(label));
+            }
+            else if (version != null)
+            {
+                keys = keys.Where(x => x.Contains(version));
             }
 
-            return Task.FromResult(new EmptySchema() as ISchema);
+            return keys;
         }
     }
 }
