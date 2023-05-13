@@ -13,6 +13,7 @@ namespace SchemaRegistry
         Avro,
         Xml,
         Parquet,
+        Yaml,
         Unknown
     }
 }

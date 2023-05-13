@@ -113,6 +113,63 @@ namespace SchemaRegistryTests
             result.IsValid.Should().BeTrue();
         }
         
+        //unit test Registry.RegisterAsync for yaml schema
+        [Fact]
+        public async Task Register_YamlSchema()
+        {
+            string? yamlSchema = @"
+            $schema: http://json-schema.org/draft-07/schema#
+            $id: http://example.com/product.schema.json
+            title: Product
+            description: A product from Acme's catalog
+            type: object
+            properties:
+              productId:
+                description: The unique identifier for a product
+                type: integer
+              productName:
+                description: Name of the product
+                type: string
+              price:
+                type: number
+                exclusiveMinimum: 0
+              tags:
+                type: array
+                items:
+                  type: string
+                minItems: 1
+                uniqueItems: true
+              dimensions:
+                type: object
+                properties:
+                  length:
+                    type: number
+                  width:
+                    type: number
+                  height:
+                    type: number
+                required: [length, width, height]
+            required: [productId, productName, price]";
+
+            //create json string from jsonSchema and create memory stream from json string
+            string? yaml = @"
+            productId: 1
+            productName: A green door
+            price: 12.50
+            tags: [home, green]"
+            ;
+            MemoryStream? stream = new (Encoding.UTF8.GetBytes(yaml));
+
+            Registry? registry = new (new SchemaRegistryConfiguration { DataStore = new MemoryDataStore() }.WithYaml());
+            await registry.RegisterAsync(new ValidationSchema
+            {
+                Subject = "yaml",
+                Schema = yamlSchema
+            });
+            ValidationResult? result = await registry.ValidateAsync(stream, "yaml");
+            result.IsValid.Should().BeTrue(result.Message);
+        }
+        
         //unit test Registry.RegisterAsync for a duplicate schema
         [Fact]
         public async Task Register_DuplicateSchema()

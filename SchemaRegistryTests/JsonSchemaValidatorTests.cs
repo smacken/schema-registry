@@ -140,38 +140,38 @@ namespace SchemaRegistryTests
         public void ValidateAsync_LargeSize()
         {
             string? json = @"{
-            ""name"": ""John"",
-            ""age"": 30,
-            ""cars"": [
-                ""Ford"",
-                ""BMW"",
-                ""Fiat""
-            ]
-        }";
+                ""name"": ""John"",
+                ""age"": 30,
+                ""cars"": [
+                    ""Ford"",
+                    ""BMW"",
+                    ""Fiat""
+                ]
+            }";
             string? schema = @"{
-            ""$schema"": ""http://json-schema.org/draft-07/schema#"",
-            ""$id"": ""http://example.com/product.schema.json"",
-            ""title"": ""Product"",
-            ""description"": ""A product from Acme's catalog"",
-            ""type"": ""object"",
-            ""properties"": {
-                ""name"": {
-                    ""description"": ""Name of the product"",
-                    ""type"": ""string""
-                },
-                ""age"": {
-                    ""description"": ""Age of the product"",
-                    ""type"": ""integer""
-                },
-                ""cars"": {
-                    ""type"": ""array"",
-                    ""items"": {
+                ""$schema"": ""http://json-schema.org/draft-07/schema#"",
+                ""$id"": ""http://example.com/product.schema.json"",
+                ""title"": ""Product"",
+                ""description"": ""A product from Acme's catalog"",
+                ""type"": ""object"",
+                ""properties"": {
+                    ""name"": {
+                        ""description"": ""Name of the product"",
                         ""type"": ""string""
+                    },
+                    ""age"": {
+                        ""description"": ""Age of the product"",
+                        ""type"": ""integer""
+                    },
+                    ""cars"": {
+                        ""type"": ""array"",
+                        ""items"": {
+                            ""type"": ""string""
+                        }
                     }
-                }
-            },
-            ""required"": [""name"", ""age""]
-        }";
+                },
+                ""required"": [""name"", ""age""]
+            }";
             JsonSchemaValidator? validator = new JsonSchemaValidator();
             ValidationResult? result = validator.ValidateAsync(new MemoryStream(Encoding.UTF8.GetBytes(json)), schema)
                 .Result;

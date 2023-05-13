@@ -62,5 +62,12 @@ namespace SchemaRegistry
             AddValidator(SchemaType.Xml, new XmlSchemaValidator());
             return this;
         }
+
+        public SchemaRegistryConfiguration WithYaml()
+        {
+            AddDetector(new YamlStreamDetector());
+            AddValidator(SchemaType.Yaml, new YamlSchemaValidator());
+            return this;
+        }
     }
 }
